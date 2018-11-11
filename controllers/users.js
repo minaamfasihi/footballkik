@@ -7,15 +7,26 @@ module.exports = function(_, passport, User) {
             router.get('/signup', this.getSignUp);
             router.get('/home', this.homePage);
             
-            router.post('/signup', this.postSignUp);
+            router.post('/', User.LoginValidation, this.postLogin);
+            router.post('/signup', User.SignUpValidation, this.postSignUp);
         },
 
         indexPage: function(req, res) {
-            return res.render('index', { test: 'This is a test' });
+            const errors = req.flash('error');
+            return res.render('index', { title: 'Footballkik | Login', 
+            messages: errors, hasErrors: errors.length > 0 });
         },
 
+        postLogin: passport.authenticate('local.login', {
+            successRedirect: '/home',
+            failureRedirect: '/signup',
+            failureFlash: true
+        }),
+
         getSignUp: function(req, res) {
-            return res.render('signup');
+            const errors = req.flash('error');
+            return res.render('signup', { title: 'Footballkik | SignUp', 
+                messages: errors, hasErrors: errors.length > 0 });
         },
 
         postSignUp: passport.authenticate('local.signup', {

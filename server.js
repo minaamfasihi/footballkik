@@ -11,9 +11,9 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const container = require('./container');
 
-container.resolve(function(users) {
+container.resolve(function(users, _) {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost:27017/footballkik', { });
+    mongoose.connect('mongodb://localhost:27017/footballkik', { useMongoClient: true });
     const app = SetupExpress();
     function SetupExpress() {
         const app = express();
@@ -48,5 +48,6 @@ container.resolve(function(users) {
         app.use(flash());
         app.use(passport.initialize());
         app.use(passport.session());
+        app.locals._ = _;
     }
 });
