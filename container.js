@@ -4,7 +4,8 @@ const path = require('path');
 const container = dependable.container();
 
 const deps = [
-    ['_', 'lodash']
+    ['_', 'lodash'],
+    ['mongoose', 'mongoose']
 ];
 
 deps.forEach(function(val) {
@@ -13,8 +14,8 @@ deps.forEach(function(val) {
     })
 });
 
-container.load(__dirname, '/controllers');
-container.load(__dirname, '/helpers');
+container.load(path.join(__dirname, '/controllers'));
+container.load(path.join(__dirname, '/helpers'));
 
 container.register('container', function() {
     return container;
