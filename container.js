@@ -5,7 +5,8 @@ const container = dependable.container();
 
 const deps = [
     ['_', 'lodash'],
-    ['mongoose', 'mongoose']
+    ['mongoose', 'mongoose'],
+    ['passport', 'passport']
 ];
 
 deps.forEach(function(val) {

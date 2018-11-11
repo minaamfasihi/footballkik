@@ -13,7 +13,7 @@ const container = require('./container');
 
 container.resolve(function(users) {
     mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost:27017/footballkik', { useMongoClient: true });
+    mongoose.connect('mongodb://localhost:27017/footballkik', { });
     const app = SetupExpress();
     function SetupExpress() {
         const app = express();
@@ -31,7 +31,7 @@ container.resolve(function(users) {
 
     function ConfigureExpress(app) {
         require('./passport/passport-local');
-        
+
         app.use(express.static('public'));
         app.use(cookieParser());
         app.set('view engine', 'ejs');
